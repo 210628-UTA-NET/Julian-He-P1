@@ -1,24 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Encodings.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using StorefrontUI2.Models;
 
-namespace StorefrontUI2.Controllers
+namespace RRWebUI.Controllers
 {
-    public class HelloWorldController : Controller
+    /*
+     * Responsible for controlling client requests and instantiation of models that a view might need
+     */
+    public class HomeController : Controller
     {
-        // 
-        // GET: /HelloWorld/
+        private readonly ILogger<HomeController> _logger;
 
-        public string Index()
+        public HomeController(ILogger<HomeController> logger)
         {
-            return "This is my default action...";
+            _logger = logger;
         }
 
-        // 
-        // GET: /HelloWorld/Welcome/ 
-
-        public string Welcome()
+        //This routes to the index.cshtml that is located in Views/Home
+        public IActionResult Index()
         {
-            return "This is the Welcome action method...";
+            return View(); //Returns the view
+        }
+
+        //This routes to the privacy.cshtml that is located in Views/Privacy
+        public IActionResult Privacy()
+        {
+            return View(); //Returns the Privacy
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

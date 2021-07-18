@@ -1,46 +1,39 @@
-using Models = StorefrontModels;
+using StorefrontModels;
 using System.Collections.Generic;
 using System.Linq;
-using Entity = StorefrontDL.Entities;
 namespace StorefrontDL{
     public class ProductRepository : IProductRepository
         {
-        private Entities.P0DBContext _context;
-        private string _jsonString;
-        public ProductRepository(Entity.P0DBContext p_context){
+        private StorefrontDBContext _context;
+        public ProductRepository(StorefrontDBContext p_context){
             _context = p_context;
         }
-        public Models.Product AddProduct(Models.Product product)
+        public Product AddProduct(Product product)
         {
-            _context.Products.Add(new Entity.Product{
-                Name = product.Name,
-                Price = product.Price,
-                Category = product.Category,
-                Description = product.Desc
-            });
+            _context.Products.Add(product);
             _context.SaveChanges();
             return product;
 
         }
 
-        public List<Models.Product> GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            return _context.Products.Select(prod => new Models.Product(){
+            return _context.Products.Select(prod => new Product(){
                                                 Name = prod.Name,
                                                 Price = (double) prod.Price,
-                                                ID = prod.Id,
+                                                ID = prod.ID,
                                                 Category = prod.Category,
-                                                Desc = prod.Description
+                                                Desc = prod.Desc
             }).ToList();
         }
 
-        public Models.Product GetProduct(Models.Product product)
+        public Product GetProduct(Product product)
         {
-            List<Models.Product> prods = this.GetAllProducts();
+            List<Product> prods = this.GetAllProducts();
             var queryRes = (from res in prods
                                     where res.ID == product.ID
                                     select res);
-            List<Models.Product> found = new List<Models.Product>();
+            List<Product> found = new List<Product>();
             return found[0];
         }
     }

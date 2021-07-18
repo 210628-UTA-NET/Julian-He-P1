@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using StorefrontDL;
+using StorefrontBL;
 
 namespace StorefrontUI2
 {
@@ -23,7 +26,12 @@ namespace StorefrontUI2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDbContext<StorefrontDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Reference2DB")));
+            services.AddScoped<IStoreRepository, StoreRepository>();
+            services.AddScoped<IStoreBL, StoreBL>();
+            services.AddScoped<ICustomerBL, CustomerBL>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

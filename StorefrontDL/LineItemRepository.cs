@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Models = StorefrontModels;
-using Entity= StorefrontDL.Entities;
+using StorefrontModels;
+
 using System.Linq;
 using System;
 using Microsoft.EntityFrameworkCore;
@@ -9,52 +9,46 @@ using Microsoft.EntityFrameworkCore;
 namespace StorefrontDL{
 
     public class LineItemRepository : ILineItemRepository{
-        private Entities.P0DBContext _context;
-        public LineItemRepository(Entity.P0DBContext p_context){
+        private StorefrontDBContext _context;
+        public LineItemRepository(StorefrontDBContext p_context){
             _context = p_context;
         }
 
-        public Models.LineItem AddLineItem(Models.LineItem lineitem)
+        public LineItem AddLineItem(LineItem lineitem)
         {
-            _context.Add(new Entity.LineItem{
-                                StoreId = lineitem.StoreID, 
-                                Quantity = lineitem.Quantity,
-                                ProdId = lineitem.ProductName.ID,
-                                OrderId = lineitem.OrderID
-
-            });
+            _context.Add(lineitem);
             _context.SaveChanges();
             return lineitem;
         }
 
-        public List<Models.LineItem> GetAllLineItems()
+        public List<LineItem> GetAllLineItems()
         {
         
-            var result =  _context.LineItems.Include(p=> p.Prod).ToList();
-            List<Models.LineItem> list = new List<Models.LineItem>();
+            var result =  _context.LineItems.Include(p=> p.ProductName).ToList();
+            List<LineItem> list = new List<LineItem>();
             foreach (var res in result){
-                    Models.LineItem lineItem = new Models.LineItem();
-                    Models.Product product = new Models.Product();
-                    lineItem.ID = res.ListId;
-                    lineItem.OrderID = res.OrderId;
-                    lineItem.StoreID = res.StoreId;
+                    LineItem lineItem = new LineItem();
+                    Product product = new Product();
+                    lineItem.ID = res.ID;
+                    lineItem.OrderID = res.OrderID;
+                    lineItem.StoreID = res.StoreID;
                     lineItem.Quantity = (int) res.Quantity;
-                    product.ID = res.Prod.Id;
-                    product.Name = res.Prod.Name;
-                    product.Price = (double)res.Prod.Price;
-                    product.Category = res.Prod.Category;
-                    product.Desc = res.Prod.Description;
+                    product.ID = res.ProductName.ID;
+                    product.Name = res.ProductName.Name;
+                    product.Price = (double)res.ProductName.Price;
+                    product.Category = res.ProductName.Category;
+                    product.Desc = res.ProductName.Desc;
                     lineItem.ProductName = product;
                     list.Add(lineItem);
             }
             return list;
         }
 
-        public List<Models.LineItem> GetLineItem(string type, int id)
+        public List<LineItem> GetLineItem(string type, int id)
         {
-            List<Models.LineItem> returnList = new List<Models.LineItem>();
-            List<Models.LineItem> allitems = this.GetAllLineItems();
-            foreach(Models.LineItem lineitem in allitems){
+            List<LineItem> returnList = new List<LineItem>();
+            List<LineItem> allitems = this.GetAllLineItems();
+            foreach(LineItem lineitem in allitems){
                 if (type == "store"){
                     if (lineitem.StoreID == id){
                         returnList.Add(lineitem);
@@ -69,20 +63,20 @@ namespace StorefrontDL{
             return returnList;
         }
 
-        public List<Models.LineItem> GetInventory( int id)
+        public List<LineItem> GetInventory( int id)
         {
-            var result = _context.LineItems.Where(b => b.StoreId == id).Include(p => p.Prod).ToList();
-            List<Models.LineItem> list = new List<Models.LineItem>();
+            var result = _context.LineItems.Where(b => b.StoreID == id).Include(p => p.ProductName).ToList();
+            List<LineItem> list = new List<LineItem>();
             foreach(var item in result){
-                Models.LineItem lineItem = new Models.LineItem();
-                Models.Product product = new Models.Product();
-                lineItem.ID = item.ListId;
+                LineItem lineItem = new LineItem();
+                Product product = new Product();
+                lineItem.ID = item.ID;
                 lineItem.Quantity = (int)item.Quantity;
-                lineItem.StoreID = item.StoreId;
-                product.Name = item.Prod.Name;
-                product.Price = (double)item.Prod.Price;
-                product.Category = item.Prod.Category;
-                product.Desc = item.Prod.Description;
+                lineItem.StoreID = item.StoreID;
+                product.Name = item.ProductName.Name;
+                product.Price = (double)item.ProductName.Price;
+                product.Category = item.ProductName.Category;
+                product.Desc = item.ProductName.Desc;
                 lineItem.ProductName = product;
                 list.Add(lineItem);
             }
@@ -91,25 +85,25 @@ namespace StorefrontDL{
 
 
         public object GetOrderItems(int id){
-            var result = _context.LineItems.Where(b => b.StoreId == id).Include(p => p.ProdId).ToList();
-            List<Models.LineItem> list = new List<Models.LineItem>();
+            var result = _context.LineItems.Where(b => b.StoreID == id).Include(p => p.ProductName.ID).ToList();
+            List<LineItem> list = new List<LineItem>();
             foreach(var item in result){
-                Models.LineItem lineItem = new Models.LineItem();
-                Models.Product product = new Models.Product();
-                lineItem.ID = item.ListId;
+                LineItem lineItem = new LineItem();
+                Product product = new Product();
+                lineItem.ID = item.ID;
                 lineItem.Quantity = (int)item.Quantity;
-                lineItem.StoreID = item.StoreId;
-                product.Name = item.Prod.Name;
-                product.Price = (double)item.Prod.Price;
-                product.Category = item.Prod.Category;
-                product.Desc = item.Prod.Description;
+                lineItem.StoreID = item.StoreID;
+                product.Name = item.ProductName.Name;
+                product.Price = (double)item.ProductName.Price;
+                product.Category = item.ProductName.Category;
+                product.Desc = item.ProductName.Desc;
                 lineItem.ProductName = product;
                 list.Add(lineItem);
             }
             return list;
         }
-        public Models.LineItem UpdateLineItem(Models.LineItem item, int amt){
-            var result = _context.LineItems.Where(p => p.ListId == item.ID);
+        public LineItem UpdateLineItem(LineItem item, int amt){
+            var result = _context.LineItems.Where(p => p.ID == item.ID);
             foreach(var res in result){
                 res.Quantity += amt;
             }
