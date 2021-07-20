@@ -9,6 +9,7 @@ namespace StorefrontModels
         private int _location;
         private double _totalPrice;
         private int _customerID;
+        private string _date;
         public Order(){}
         public double TotalPrice { get{
             return  _totalPrice;
@@ -34,6 +35,11 @@ namespace StorefrontModels
             }
         }
         public int OrderID { get{return _orderID;} set{_orderID = value;} }
+
+        public string Date {
+            get{return _date;}
+            set{_date= value;}
+        }
     }
         
 

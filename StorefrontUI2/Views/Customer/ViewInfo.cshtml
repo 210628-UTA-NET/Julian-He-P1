@@ -1,0 +1,28 @@
+@model StorefrontUI2.Models.CustomerVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h3>View Customer Information</h3>
+
+    <div>
+        
+        <table class="table table-striped table-hover">
+        <tbody>
+            <label>Name: @Model.Name</label> <br>
+        <label>Address: @Model.Address</label> <br>
+        <label>Email: @Model.Email</label> <br>
+        <label>Phone: @Model.Phone</Label> <br>
+        <td>
+            @Html.ActionLink("View Orders", "CustomerOrders", "Order", new {p_id = Model.ID})
+        </td>
+        </tbody>
+    </table>
+        <a asp-action="Find" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+    </div>
+</body>
+</html>

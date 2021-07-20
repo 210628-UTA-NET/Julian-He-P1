@@ -32,6 +32,10 @@ namespace StorefrontUI2
             services.AddScoped<IStoreBL, StoreBL>();
             services.AddScoped<ICustomerBL, CustomerBL>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IOrderBL, OrderBL>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductBL, ProductBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

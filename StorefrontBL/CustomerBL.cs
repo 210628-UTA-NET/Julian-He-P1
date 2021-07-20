@@ -25,6 +25,9 @@ namespace StorefrontBL{
 
             return _repo.GetCustomer(id);
         }
+        public List<Customer> GetCustomer(string p_name){
+            return _repo.GetCustomer(p_name);
+        }
 
     }
 

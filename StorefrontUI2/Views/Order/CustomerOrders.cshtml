@@ -1,0 +1,30 @@
+@model IEnumerable<StorefrontUI2.Models.OrderVM>
+
+@{
+    ViewData["Title"] = "ViewCustomerOrder";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <h1>@ViewBag.Customer.Name Orders</h1>
+
+@*     <p>
+    @Html.ActionLink("Place order", "Create", new { id = ViewBag.Customer.Id })
+    </p> 
+    @using(Html.BeginForm("Find","Customer", FormMethod.Get)){
+            <b>Order By:</b> 
+            @Html.RadioButton("Order by", "Price", true) <text>Price </text>
+            @Html.RadioButton("Order by", "Date Placed") <text>Date Placed</text> 
+            <br/>
+
+            @Html.TextBox("Search") <input type = "submit" value ="Search" placeholder="Customer Information" />
+            }*@
+    <a asp-action="ViewInfo" asp-controller= "Customer" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+</body>
+</html>

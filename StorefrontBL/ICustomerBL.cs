@@ -13,5 +13,7 @@ namespace StorefrontBL{
         Customer AddCustomer(Customer customer);
 
         Customer GetCustomer(int id);
+
+        List<Customer> GetCustomer(string p_name);
     }
 }

@@ -21,43 +21,31 @@ namespace StorefrontDL{
 
         public List<Order> GetAllOrders()
         {
-            var result = _context.Orders.Include(o => o.Items).ToList();
-            List<Order> list = new List<Order>();
-            foreach (var res in result){
-                    Order order = new Order();
-                    order.OrderID = res.OrderID;
-                    order.CustomerID = (int)res.CustomerID;
-                    order.Location = (int)res.Location;
-                    order.TotalPrice = (double) res.TotalPrice;
-                    LineItemRepository lineItem = new LineItemRepository(_context);
-                    order.Items = lineItem.GetLineItem("order", order.OrderID);
-                    list.Add(order);
-            }
-            return list;
+            return _context.Orders.Select(orders => orders).ToList();
         }
 
-        public List<Order> GetStoreOrder(int storeID)
+        public List<Order> GetStoreOrder(int storeID, string AscOrDesc, string PriceOrDate)
         {
-            List<Order> orders = this.GetAllOrders();
-            var queryRes = (from res in orders
-                                where res.Location == storeID
-                                select res);
-            List<Order> ordered = new List<Order>();
-            foreach(var result in queryRes){
-                ordered.Add(result);
+            if (PriceOrDate == "Price"){
+                if (AscOrDesc == "Asc"){
+                    return _context.Orders.Where(store => store.Location == storeID).OrderBy(store=> store.TotalPrice).ToList();
+                }
+                else{
+                    return _context.Orders.Where(store => store.Location == storeID).OrderByDescending(store=> store.TotalPrice).ToList();
+                }
             }
-            return ordered;
+            else{
+                if(AscOrDesc == "Asc"){
+                    return _context.Orders.Where(store=>store.Location == storeID).OrderBy(store => store.Date).ToList();
+                }
+                else{
+                    return _context.Orders.Where(store=>store.Location == storeID).OrderByDescending(store => store.Date).ToList();
+                }
+                
+            }
         }
         public List<Order> GetCustomerOrder(int customerID){
-            List<Order> orders = this.GetAllOrders();
-            var queryRes = (from res in orders
-                                where res.CustomerID == customerID
-                                select res);
-            List<Order> ordered = new List<Order>();
-            foreach(var result in queryRes){
-                ordered.Add(result);
-            }
-            return ordered;
+            return this.GetAllOrders().Where(order => order.CustomerID == customerID).ToList();
         }
         public void PlaceOrder(Order order, List<LineItem> listItems){
              this.AddOrder(order);

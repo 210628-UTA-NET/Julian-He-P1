@@ -3,8 +3,10 @@ using Xunit;
 using System.Linq;
 using System.Text;
 using StorefrontDL;
-using StorfrontBL;
-using Microsoft.EntityCoreFramework;
+using StorefrontBL;
+using Microsoft.EntityFrameworkCore;
+using StorefrontModels;
+using System.Collections.Generic;
 
 
 namespace StorefrontTests
@@ -25,7 +27,7 @@ namespace StorefrontTests
             using (var context = new StorefrontDBContext(_options))
             {
                 //Arrange
-                IRepository repo = new CustomerRepository(context);
+                ICustomerRepository repo = new CustomerRepository(context);
                 List<Customer> customers;
 
                 //Act
@@ -44,7 +46,7 @@ namespace StorefrontTests
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                context.Restaurants.AddRange(
+                context.Customers.AddRange(
                     new Customer
                     {
                         Name = "Macintosh",

@@ -8,5 +8,6 @@ namespace StorefrontDL{
         List<Customer> GetAllCustomers();
         Customer GetCustomer(int customer);
         Customer AddCustomer(Customer customer);
+        List<Customer> GetCustomer(string p_name);
     }
 }

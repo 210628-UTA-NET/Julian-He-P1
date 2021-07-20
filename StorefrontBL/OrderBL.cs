@@ -28,9 +28,9 @@ namespace StorefrontBL
            return _repo.GetAllOrders();
         }
 
-        public List<Order> GetStoreOrder(int p_order)
+        public List<Order> GetStoreOrder(int p_order, string AscOrDesc, string PriceOrDate)
         {
-            return _repo.GetStoreOrder(p_order);
+            return _repo.GetStoreOrder(p_order, AscOrDesc, PriceOrDate);
         }
         public List<Order> GetCustomerOrder(int p_order){
             return _repo.GetCustomerOrder(p_order);
