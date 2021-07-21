@@ -12,9 +12,11 @@ namespace StorefrontUI2.Controllers{
     public class OrderController : Controller{
             private ICustomerBL _customerBL;
             private IOrderBL _orderBL;
-        public OrderController(ICustomerBL customerBL, IOrderBL orderBL){
+            private IStoreBL _storeBL;
+        public OrderController(ICustomerBL customerBL, IOrderBL orderBL, IStoreBL storeBL){
             _customerBL = customerBL;
             _orderBL = orderBL;
+            _storeBL = storeBL;
         }
         
         public IActionResult CustomerOrders(int p_id)        {
@@ -26,6 +28,10 @@ namespace StorefrontUI2.Controllers{
             // These two last 1 req/res lc
             ViewBag.Customer = _customerBL.GetCustomer(p_id);
             List<Order> result = _orderBL.GetCustomerOrder(p_id);
+            List<Storefront> stores = _storeBL.GetAllStore();
+            foreach(Storefront store in stores){
+                ViewData.Add(Convert.ToString(store.ID), store.Name);
+            }
             return View(result.Select(order => new OrderVM(order)).ToList());
         }
 

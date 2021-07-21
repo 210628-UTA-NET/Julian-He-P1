@@ -1,4 +1,4 @@
 {
-    "dotnet-test-explorer.testProjectPath": "StorefrontTests/CustomerRepositoryTest"
+    "dotnet-test-explorer.testProjectPath": "Storetests"
     
 }

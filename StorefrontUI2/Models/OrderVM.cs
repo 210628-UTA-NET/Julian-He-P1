@@ -12,7 +12,7 @@ namespace StorefrontUI2.Models{
         public OrderVM(Order order){
             ID = order.OrderID;
             CustomerID = order.CustomerID;
-            Location  = order.Location;
+            StorefrontID  = order.StorefrontID;
             TotalPrice = order.TotalPrice;
             Items = order.Items;
             Date = order.Date;
@@ -22,7 +22,7 @@ namespace StorefrontUI2.Models{
         public int ID { get; set; }
 
         public int CustomerID { get; set; }
-        public int Location { get; set; }
+        public int StorefrontID { get; set; }
 
         public double TotalPrice{get; set;}
 

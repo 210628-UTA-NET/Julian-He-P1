@@ -1,0 +1,26 @@
+@model StorefrontUI2.Models.StorefrontVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h3>View Store Information</h3>
+
+    <div>
+        
+        <table class="table table-striped table-hover">
+        <tbody>
+            <label>Name: @Model.Name</label> <br>
+        <label>Address: @Model.Address</label> <br>
+        @*<td>
+            @Html.ActionLink("View Orders", "StoreOrders", "Order", new {p_id = Model.ID})
+        </td>*@
+        </tbody>
+    </table>
+        <a asp-action="Find" asp-controller="Store" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+    </div>
+</body>
+</html>

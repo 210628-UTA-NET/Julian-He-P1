@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xunit;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,7 @@ using StorefrontModels;
 using System.Collections.Generic;
 
 
-namespace StorefrontTests
+namespace Storetests
 {
     public class CustomerRepositoryTest
     {

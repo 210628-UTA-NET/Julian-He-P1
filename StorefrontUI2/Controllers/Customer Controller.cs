@@ -61,7 +61,9 @@ namespace StorefrontUI2.Controllers{
 
         public IActionResult ViewInfo(int p_id)
         {
+            ViewBag.Customer = _customerbl.GetCustomer(p_id);
             return View(new CustomerVM(_customerbl.GetCustomer(p_id)));
+            
         }
 
 

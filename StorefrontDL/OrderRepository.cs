@@ -28,18 +28,18 @@ namespace StorefrontDL{
         {
             if (PriceOrDate == "Price"){
                 if (AscOrDesc == "Asc"){
-                    return _context.Orders.Where(store => store.Location == storeID).OrderBy(store=> store.TotalPrice).ToList();
+                    return _context.Orders.Where(store => store.StorefrontID == storeID).OrderBy(store=> store.TotalPrice).ToList();
                 }
                 else{
-                    return _context.Orders.Where(store => store.Location == storeID).OrderByDescending(store=> store.TotalPrice).ToList();
+                    return _context.Orders.Where(store => store.StorefrontID == storeID).OrderByDescending(store=> store.TotalPrice).ToList();
                 }
             }
             else{
                 if(AscOrDesc == "Asc"){
-                    return _context.Orders.Where(store=>store.Location == storeID).OrderBy(store => store.Date).ToList();
+                    return _context.Orders.Where(store=>store.StorefrontID == storeID).OrderBy(store => store.Date).ToList();
                 }
                 else{
-                    return _context.Orders.Where(store=>store.Location == storeID).OrderByDescending(store => store.Date).ToList();
+                    return _context.Orders.Where(store=>store.StorefrontID == storeID).OrderByDescending(store => store.Date).ToList();
                 }
                 
             }

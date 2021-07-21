@@ -7,7 +7,7 @@
     <title></title>
 </head>
 <body>
-    <h3>View Customer Information</h3>
+    <h3>View @ViewBag.Customer.Name's Information</h3>
 
     <div>
         
@@ -22,7 +22,7 @@
         </td>
         </tbody>
     </table>
-        <a asp-action="Find" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+        <a asp-action="Find" asp-controller="Customer" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
     </div>
 </body>
 </html>

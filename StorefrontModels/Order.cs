@@ -6,7 +6,7 @@ namespace StorefrontModels
     public class Order{
         private List<LineItem> _items = new List<LineItem>();
         private int _orderID;
-        private int _location;
+        private int _storefrontID;
         private double _totalPrice;
         private int _customerID;
         private string _date;
@@ -16,10 +16,10 @@ namespace StorefrontModels
         } set{
             _totalPrice = value;
         } }
-        public int Location { get{
-            return _location;
+        public int StorefrontID { get{
+            return _storefrontID;
         } set{
-            _location = value;
+            _storefrontID = value;
         } }
         public List<LineItem> Items {get{
             return _items;

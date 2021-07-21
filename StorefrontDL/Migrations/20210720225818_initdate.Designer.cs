@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorefrontDL;
 
 namespace StorefrontDL.Migrations
 {
     [DbContext(typeof(StorefrontDBContext))]
-    partial class StorefrontDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210720225818_initdate")]
+    partial class initdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
