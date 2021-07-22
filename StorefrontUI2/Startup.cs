@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using StorefrontDL;
 using StorefrontBL;
+using Serilog;
 
 namespace StorefrontUI2
 {
@@ -19,6 +20,7 @@ namespace StorefrontUI2
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+           
         }
 
         public IConfiguration Configuration { get; }
@@ -36,6 +38,9 @@ namespace StorefrontUI2
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductBL, ProductBL>();
+            services.AddScoped<ILineItemRepository, LineItemRepository>();
+            services.AddScoped<ILineItemBL, LineItemBL>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

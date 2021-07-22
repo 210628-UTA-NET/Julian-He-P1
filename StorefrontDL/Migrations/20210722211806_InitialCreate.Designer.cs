@@ -10,7 +10,7 @@ using StorefrontDL;
 namespace StorefrontDL.Migrations
 {
     [DbContext(typeof(StorefrontDBContext))]
-    [Migration("20210718145914_InitialCreate")]
+    [Migration("20210722211806_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,27 @@ namespace StorefrontDL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("StorefrontModels.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StorefrontID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Carts");
+                });
 
             modelBuilder.Entity("StorefrontModels.Customer", b =>
                 {
@@ -52,6 +73,9 @@ namespace StorefrontDL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CartID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
@@ -61,13 +85,12 @@ namespace StorefrontDL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StoreID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("StorefrontID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CartID");
 
                     b.HasIndex("OrderID");
 
@@ -88,10 +111,10 @@ namespace StorefrontDL.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Location")
-                        .HasColumnType("int");
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StorefrontID")
+                    b.Property<int>("StorefrontID")
                         .HasColumnType("int");
 
                     b.Property<double>("TotalPrice")
@@ -150,6 +173,10 @@ namespace StorefrontDL.Migrations
 
             modelBuilder.Entity("StorefrontModels.LineItem", b =>
                 {
+                    b.HasOne("StorefrontModels.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartID");
+
                     b.HasOne("StorefrontModels.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderID");
@@ -175,7 +202,14 @@ namespace StorefrontDL.Migrations
 
                     b.HasOne("StorefrontModels.Storefront", null)
                         .WithMany("Orders")
-                        .HasForeignKey("StorefrontID");
+                        .HasForeignKey("StorefrontID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StorefrontModels.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("StorefrontModels.Customer", b =>

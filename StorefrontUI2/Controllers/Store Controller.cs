@@ -11,10 +11,10 @@ using StorefrontDL;
 namespace StorefrontUI2.Controllers{
     public class StoreController : Controller{
         private IStoreBL _storebl;
-
-        public StoreController(IStoreBL storeBL){
+        private ILineItemBL _lineitemBL;
+        public StoreController(IStoreBL storeBL, ILineItemBL lineitemBL){
             _storebl = storeBL;
-
+            _lineitemBL = lineitemBL;
         }
         //show all customers 
         public IActionResult Index(){
@@ -39,7 +39,6 @@ namespace StorefrontUI2.Controllers{
         [HttpPost]
         public IActionResult Create(StorefrontVM store)
         {
-
             try{
                     if (ModelState.IsValid){
                         _storebl.AddStore(new Storefront{
@@ -50,7 +49,6 @@ namespace StorefrontUI2.Controllers{
                         });
                         return RedirectToAction(nameof(Index));
                     }
-                
             }
             catch (Exception){
                 return View();
@@ -60,10 +58,12 @@ namespace StorefrontUI2.Controllers{
 
         public IActionResult ViewInfo(int p_id)
         {
+            ViewBag.Storefront = _storebl.GetStorefront(p_id);
             return View(new StorefrontVM(_storebl.GetStorefront(p_id)));
-            
         }
-
-
+        public IActionResult ViewInventory(int p_id)
+        {
+            return View(_lineitemBL.GetInventory(p_id).Select(line => new LineItemVM(line)).ToList());
+        }
     }
 }

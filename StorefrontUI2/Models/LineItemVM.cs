@@ -11,15 +11,15 @@ namespace StorefrontUI2.Models{
         }
         public LineItemVM(LineItem lineItem){
             ID = lineItem.ID;
-            StoreID = (int)lineItem.StoreID;
+            StorefrontID = lineItem.StorefrontID;
             ProductName = lineItem.ProductName;
-            OrderID = (int)lineItem.OrderID;
+            OrderID = lineItem.OrderID;
             Quantity = lineItem.Quantity;
         }
 
         public int ID  { get; set; }
-        public int StoreID { get; set; }
-        public int OrderID { get; set; }
+        public int? StorefrontID { get; set; }
+        public int? OrderID { get; set; }
         public int Quantity { get; set; }
         public Product ProductName{get; set;}
     }

@@ -8,7 +8,7 @@ namespace StorefrontModels
         private int _quantity;
         private Product _product;
         private int? _orderID;
-        private int? _storeID;
+        private int? _storefrontID;
         private int _id;
         public LineItem(){
         }
@@ -38,10 +38,12 @@ namespace StorefrontModels
             get{return _orderID;}
             set{_orderID = value;}
         }
-        public int? StoreID{
-            get{return _storeID;}
-            set{_storeID = value;}
+        public int? StorefrontID{
+            get{return _storefrontID;}
+            set{_storefrontID = value;}
         }
+        public int? CartID{
+            get; set;}
         public int ID{
             get{return _id;}
             set{_id = value;}

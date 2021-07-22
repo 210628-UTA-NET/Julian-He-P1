@@ -1,0 +1,73 @@
+@model IEnumerable<StorefrontUI2.Models.OrderVM>
+
+@{
+    ViewData["Title"] = "ViewStoreOrder";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <h1>@ViewBag.Store.Name's Orders</h1>
+
+@*     <p>
+    @Html.ActionLink("Place order", "Create", new { id = ViewBag.Customer.Id })
+    </p> 
+    @using(Html.BeginForm("Find","Customer", FormMethod.Get)){
+            <b>Order By:</b> 
+            @Html.RadioButton("Order by", "Price", true) <text>Price </text>
+            @Html.RadioButton("Order by", "Date Placed") <text>Date Placed</text> 
+            <br/>
+
+            @Html.TextBox("Search") <input type = "submit" value ="Search" placeholder="Customer Information" />
+            }*@
+    
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(Model => Model.ID)
+            </th>
+            <th>
+                Store Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.TotalPrice)
+            </th>
+            <th>
+                Date Placed
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @ViewData[Convert.ToString(item.CustomerID)])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("View Order Details", "ViewDetails", "Store", new {p_id = item.ID}, new {@style = "color:white", @class = "btn btn-secondary"})
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table>
+    <p>
+    @Html.ActionLink("Back", "ViewInfo", "Store", new {p_id = ViewBag.Storefront.ID}, new {@style = "color:white", @class = "btn btn-danger"})
+</p>
+</body>
+</html>

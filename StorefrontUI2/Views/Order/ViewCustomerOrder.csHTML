@@ -1,0 +1,53 @@
+@model StorefrontUI2.Models.OrderVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <h1>Orders</h1>
+    <h3>Order Placed on @ViewBag.Order.Date<h3>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Product
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price Per Item
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Items.Count() == 0){
+                <tr>
+                    <td colspan="4"> No rows match search criteria</td>
+                </tr>
+            }
+        }
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName.Price)
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table>
+    
+</body>
+</html>

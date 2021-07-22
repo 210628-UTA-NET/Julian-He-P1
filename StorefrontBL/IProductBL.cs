@@ -19,6 +19,6 @@ namespace StorefrontBL
 
         Product AddProduct(Product p_product);
 
-        Product GetProduct(Product p_product);
+        Product GetProduct(int id);
     }
 }

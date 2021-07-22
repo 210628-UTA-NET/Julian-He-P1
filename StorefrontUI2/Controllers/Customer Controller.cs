@@ -16,19 +16,13 @@ namespace StorefrontUI2.Controllers{
             _customerbl = customerBL;
 
         }
-        //show all customers 
-        public IActionResult Index(){
-            return View(_customerbl.GetAllCustomers().Select(cust => new CustomerVM(cust)).ToList());
-        }
-        public IActionResult Find(string search, string searchby){
+        //show all customers
+        public IActionResult Index(string searchby, string search){
             if (search == null){
                 return View(_customerbl.GetAllCustomers().Select(cust => new CustomerVM(cust)).ToList());
             }
-            else if (searchby == "Name"){
-                return View(_customerbl.GetAllCustomers().Where(cust => cust.Name.Contains(search)).Select(cust => new CustomerVM(cust)).ToList());
-            }
             else{
-                return View(_customerbl.GetAllCustomers().Where(cust1 => cust1.Address.Contains(search)).Select(cust => new CustomerVM(cust)).ToList());
+                return View(_customerbl.GetAllCustomers().Where(cust => cust.Name.Contains(search)).Select(cust => new CustomerVM(cust)).ToList());
             }
         }
         public IActionResult Create()
@@ -39,19 +33,17 @@ namespace StorefrontUI2.Controllers{
         [HttpPost]
         public IActionResult Create(CustomerVM customer)
         {
-
             try{
-                    if (ModelState.IsValid){
-                        _customerbl.AddCustomer(new Customer{
-                            Name = customer.Name,
-                            Address = customer.Address,
-                            Orders = customer.Orders,
-                            Phone = customer.Phone,
-                            Email = customer.Email,
-                        });
-                        return RedirectToAction(nameof(Index));
-                    }
-                
+                if (ModelState.IsValid){
+                    _customerbl.AddCustomer(new Customer{
+                    Name = customer.Name,
+                    Address = customer.Address,
+                    Orders = customer.Orders,
+                    Phone = customer.Phone,
+                    Email = customer.Email,
+                    });
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch (Exception){
                 return View();

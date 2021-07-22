@@ -10,8 +10,14 @@
     <h1>You are in the Customer Page</h1>
 
     <a class="btn btn-secondary" asp-action="Create">Create Customer</a>
-    <a class="btn btn-secondary" asp-action="Find"> Find a Customer</a>
+ <br>
 
+<p>
+            @using(Html.BeginForm("Index","Customer", FormMethod.Get)){
+            <br/>
+            @Html.TextBox("Search") <input type = "submit" value = "Search" placeholder="Customer Name" />
+            }
+        </p>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -22,6 +28,11 @@
             </tr>
         </thead>
         <tbody>
+            @if (Model.Count()==0){
+                <tr>
+                    <td colspan="4"> No rows match search criteria</td>
+                </tr>
+            }
             @foreach (var item in Model)
             {
                 <tr>

@@ -7,7 +7,7 @@ namespace StorefrontBL{
     {
 
         private ILineItemRepository _repo;
-        public LineItemBL(LineItemRepository p_repo)
+        public LineItemBL(ILineItemRepository p_repo)
         {
             _repo = p_repo;
         }
@@ -22,9 +22,9 @@ namespace StorefrontBL{
             return _repo.GetAllLineItems();
         }
 
-        public List<LineItem> GetLineItem(string param, int i)
+        public List<LineItem> GetOrderItems( int i)
         {
-            return _repo.GetLineItem(param, i);
+            return _repo.GetOrderItems(i);
         }
 
         public LineItem UpdateLineItem(LineItem p_lineitem, int amt)

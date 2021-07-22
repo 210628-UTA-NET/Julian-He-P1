@@ -15,12 +15,15 @@
         <tbody>
             <label>Name: @Model.Name</label> <br>
         <label>Address: @Model.Address</label> <br>
-        @*<td>
+        <td>
             @Html.ActionLink("View Orders", "StoreOrders", "Order", new {p_id = Model.ID})
-        </td>*@
+        </td>
+        <td>
+            @Html.ActionLink("View Inventory", "ViewInventory", new{p_id=Model.ID})
+        </td>
         </tbody>
     </table>
-        <a asp-action="Find" asp-controller="Store" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+        <a asp-action="Index" asp-controller="Store" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
     </div>
 </body>
 </html>

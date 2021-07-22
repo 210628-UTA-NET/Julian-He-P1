@@ -24,9 +24,16 @@ namespace StorefrontDL{
             return _context.Orders.Select(orders => orders).ToList();
         }
 
-        public List<Order> GetStoreOrder(int storeID, string AscOrDesc, string PriceOrDate)
+        public Order GetOrder(int id){
+            Order order = _context.Orders.Find(id);
+            LineItemRepository line = new LineItemRepository(_context);
+            order.Items = line.GetOrderItems(id);
+            return order;
+        }  
+        public List<Order> GetStoreOrder(int storeID)
         {
-            if (PriceOrDate == "Price"){
+            return _context.Orders.Select(orders => orders).Where(store => store.StorefrontID == storeID).ToList();
+            /* if (PriceOrDate == "Price"){
                 if (AscOrDesc == "Asc"){
                     return _context.Orders.Where(store => store.StorefrontID == storeID).OrderBy(store=> store.TotalPrice).ToList();
                 }
@@ -42,21 +49,26 @@ namespace StorefrontDL{
                     return _context.Orders.Where(store=>store.StorefrontID == storeID).OrderByDescending(store => store.Date).ToList();
                 }
                 
-            }
+            } */
         }
         public List<Order> GetCustomerOrder(int customerID){
             return this.GetAllOrders().Where(order => order.CustomerID == customerID).ToList();
         }
-        public void PlaceOrder(Order order, List<LineItem> listItems){
-             this.AddOrder(order);
-            LineItemRepository linerepo = new LineItemRepository(_context);
-            foreach(LineItem line in listItems){
-                foreach(LineItem item in order.Items){
-                    if(item.ProductName.ID == line.ProductName.ID){
-                    linerepo.UpdateLineItem(line , -item.Quantity);}}
 
-            }
-            _context.SaveChanges();
+        public void PlaceOrder(Order order, List<LineItem> listItems)
+        {
+            throw new System.NotImplementedException();
         }
+        /*         public void PlaceOrder(Order order, List<LineItem> listItems){
+            this.AddOrder(order);
+           LineItemRepository linerepo = new LineItemRepository(_context);
+           foreach(LineItem line in listItems){
+               foreach(LineItem item in order.Items){
+                   if(item.ProductName.ID == line.ProductName.ID){
+                   linerepo.UpdateLineItem(line , -item.Quantity);}}
+
+           }
+           _context.SaveChanges();
+       } */
     }
 }

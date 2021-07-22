@@ -28,9 +28,9 @@ namespace StorefrontBL
            return _repo.GetAllProducts();
         }
 
-        public Product GetProduct(Product p_product)
+        public Product GetProduct(int id)
         {
-            return _repo.GetProduct(p_product);
+            return _repo.GetProduct(id);
         }
 
     }

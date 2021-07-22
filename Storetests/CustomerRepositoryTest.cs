@@ -18,7 +18,7 @@ namespace Storetests
         //Constructors in unit test will always run before a test case
         public CustomerRepositoryTest()
         {
-            _options = new DbContextOptionsBuilder<StorefrontDBContext>().UseSqlite("Filename = Test.db").Options;
+            _options = new DbContextOptionsBuilder<StorefrontDBContext>().UseSqlite("Filename = CustomerTest.db").Options;
             this.Seed();
         }
         [Fact]
@@ -36,6 +36,18 @@ namespace Storetests
                 //Assert
                 Assert.NotNull(customers);
                 Assert.Equal(2,customers.Count);
+            }
+        }
+
+        [Fact]
+        public void GetCustomerIDShouldGetACustomerByID(){
+            using(var context = new StorefrontDBContext(_options)){
+                ICustomerRepository repo = new CustomerRepository(context);
+                Customer customers;
+                customers= repo.GetCustomer(1);
+
+                Assert.NotNull(customers);
+                Assert.Equal(customers.Name, "Macintosh");
             }
         }
          private void Seed()

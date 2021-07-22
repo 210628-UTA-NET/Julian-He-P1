@@ -1,4 +1,6 @@
 {
-    "dotnet-test-explorer.testProjectPath": "Storetests"
+    "dotnet-test-explorer.testProjectPath": "Storetests",
+    "appService.defaultWebAppToDeploy": "/subscriptions/4e7fa7f8-fd3a-4dea-b2fe-7799b636f3e5/resourceGroups/Revature-Training/providers/Microsoft.Web/sites/Julian-Storefront",
+    "appService.deploySubpath": "StorefrontUI2\\Publish"
     
 }

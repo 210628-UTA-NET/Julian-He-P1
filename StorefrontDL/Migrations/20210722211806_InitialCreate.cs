@@ -7,6 +7,21 @@ namespace StorefrontDL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    StorefrontID = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -59,9 +74,9 @@ namespace StorefrontDL.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
-                    Location = table.Column<int>(type: "int", nullable: false),
+                    StorefrontID = table.Column<int>(type: "int", nullable: false),
                     CustomerID = table.Column<int>(type: "int", nullable: false),
-                    StorefrontID = table.Column<int>(type: "int", nullable: true)
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,7 +92,7 @@ namespace StorefrontDL.Migrations
                         column: x => x.StorefrontID,
                         principalTable: "Storefronts",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,12 +104,18 @@ namespace StorefrontDL.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     ProductNameID = table.Column<int>(type: "int", nullable: true),
                     OrderID = table.Column<int>(type: "int", nullable: true),
-                    StoreID = table.Column<int>(type: "int", nullable: true),
-                    StorefrontID = table.Column<int>(type: "int", nullable: true)
+                    StorefrontID = table.Column<int>(type: "int", nullable: true),
+                    CartID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LineItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_LineItems_Carts_CartID",
+                        column: x => x.CartID,
+                        principalTable: "Carts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_LineItems_Orders_OrderID",
                         column: x => x.OrderID,
@@ -114,6 +135,11 @@ namespace StorefrontDL.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LineItems_CartID",
+                table: "LineItems",
+                column: "CartID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LineItems_OrderID",
@@ -145,6 +171,9 @@ namespace StorefrontDL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "LineItems");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Orders");

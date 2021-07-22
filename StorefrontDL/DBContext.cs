@@ -20,6 +20,8 @@ namespace StorefrontDL
 
         public DbSet<LineItem> LineItems{get; set;}
 
+        public DbSet<Cart> Carts{get; set;}
+
         public StorefrontDBContext() : base()
         { }
 
@@ -27,9 +29,9 @@ namespace StorefrontDL
         { }
 
 
-/*         protected override void OnConfiguring(DbContextOptionsBuilder p_options){
+       protected override void OnConfiguring(DbContextOptionsBuilder p_options){
             p_options.UseSqlServer(@"Server=tcp:jhe.database.windows.net,1433;Initial Catalog=P0 DB;Persist Security Info=False;User ID=asapjules;Password=Atomicbomb1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        } */
+        } 
         protected override void OnModelCreating(ModelBuilder p_modelBuilder)
         {
             //It will auto generate the ID column for both tables
@@ -50,6 +52,8 @@ namespace StorefrontDL
             
             p_modelBuilder.Entity<LineItem>()
                 .Property(line => line.ID).ValueGeneratedOnAdd();
+            p_modelBuilder.Entity<Cart>()
+                .Property(cart => cart.ID).ValueGeneratedOnAdd();
         }
     }
 }
