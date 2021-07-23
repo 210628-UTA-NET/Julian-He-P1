@@ -7,12 +7,15 @@ using StorefrontBL;
 using StorefrontUI2.Models;
 using StorefrontModels;
 using StorefrontDL;
+using Microsoft.AspNetCore.Http;
+using System.Web;
 
 namespace StorefrontUI2.Controllers{
     public class OrderController : Controller{
             private ICustomerBL _customerBL;
             private IOrderBL _orderBL;
             private IStoreBL _storeBL;
+            private ILineItemBL _lineItemBL;
 
         public OrderController(ICustomerBL customerBL, IOrderBL orderBL, IStoreBL storeBL, ILineItemBL lineitemBL){
             _customerBL = customerBL;
@@ -22,13 +25,13 @@ namespace StorefrontUI2.Controllers{
         }
         
         public IActionResult CustomerOrders(int p_id, string sortby){
+            
             //Viewbag and ViewData
             // Viewbag, dynamically infers a type....
             // Viewdata stores everything as an object
             // These two share the same memory, they're both dictionary types that store things
             // in a key value manner
             // These two last 1 req/res lc
-            ViewBag.Customer = _customerBL.GetCustomer(p_id);
             ViewBag.SortPriceParameter = string.IsNullOrEmpty(sortby) ? "Price Desc":"";
             ViewBag.SortDateParameter = sortby == "Date" ? "Date Desc":"Date";
             List<Order> result = _orderBL.GetCustomerOrder(p_id);
@@ -55,7 +58,7 @@ namespace StorefrontUI2.Controllers{
         }
 
         public IActionResult StoreOrders(int p_id, string sortby){
-            ViewBag.Store = _storeBL.GetStorefront(p_id);
+            ViewBag.Storefront = _storeBL.GetStorefront(p_id);
             ViewBag.SortPriceParameter = string.IsNullOrEmpty(sortby) ? "Price Desc":"";
             ViewBag.SortDateParameter = sortby == "Date" ? "Date Desc":"Date";
             List<Order> result = _orderBL.GetStoreOrder(p_id);
@@ -85,10 +88,12 @@ namespace StorefrontUI2.Controllers{
             ViewBag.Order= _orderBL.GetOrder(p_id);
             return View( new OrderVM(_orderBL.GetOrder(p_id)));
         }
+
         public IActionResult ViewStoreOrder(int p_id){
             Order order = _orderBL.GetOrder(p_id);
             return View(new OrderVM(order));
         }
+
         public IActionResult PlaceOrder(int p_id, string search)
         {
             TempData["customer"]=_customerBL.GetCustomer(p_id);
@@ -102,9 +107,7 @@ namespace StorefrontUI2.Controllers{
         public IActionResult MakeOrder(int storeID, int customerID){
             TempData["customerID"] = customerID;
             TempData["storeID"] = storeID;
-            return View(_lineitemBL.GetInventory(storeID).Select(inv => new LineItemVM(inv)).ToList());
+            return View(_lineItemBL.GetInventory(storeID).Select(inv => new LineItemVM(inv)).ToList());
         }
-    }
-
-        
-    }
+    }        
+}

@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <title></title>
 </head>
+@* Code to create a customer inputs name, address orders *@
 <body>
     <h3>Create a Customer</h3>
 
@@ -20,11 +21,6 @@
                 <label asp-for="Address" class="form-label">Address</label>
                 <input asp-for="Address" type="text" class="form-control">
                 <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Orders" class="form-label">Orders</label>
-                <input asp-for="Orders" type="text" class="form-control">
-                <span asp-validation-for="Orders" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Email" class="form-label">Email</label>

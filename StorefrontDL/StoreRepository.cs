@@ -29,13 +29,7 @@ namespace StorefrontDL
 
         public Storefront GetStorefront(int id)
         {
-            Storefront chosen = new Storefront();
-            foreach(Storefront store in this.GetAllStores()){
-                if (store.ID == id){
-                    chosen = store;
-                }
-            }
-            return chosen;
+            return _context.Storefronts.Find(id);
         }
         public LineItem Replenish(LineItem item, int amt){
             LineItemRepository lines = new LineItemRepository(_context);

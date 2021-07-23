@@ -31,6 +31,10 @@ namespace StorefrontDL{
            return _context.LineItems.Where(line => line.StorefrontID== id).Include(line=> line.ProductName).ToList();
         }
 
+        public LineItem GetLineItem(int id)
+        {
+            return _context.LineItems.Find(id);
+        }
 
         public List<LineItem> GetOrderItems(int id){
 

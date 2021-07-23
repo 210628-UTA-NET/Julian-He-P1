@@ -16,6 +16,10 @@ namespace StorefrontBL{
             _repo.AddLineItem(p_lineitem);
             return p_lineitem;
         }
+        public LineItem GetLineItem(int id){
+           return _repo.GetLineItem( id);
+            
+        }
 
         public List<LineItem> GetAllLineItem()
         {

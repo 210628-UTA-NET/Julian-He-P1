@@ -16,6 +16,7 @@ namespace StorefrontBL
         /// </summary>
         /// <returns>Returns a list of restaurants</returns>
         List<LineItem> GetAllLineItem();
+        LineItem GetLineItem(int id);
 
         LineItem AddLineItem(LineItem p_lineitem);
 

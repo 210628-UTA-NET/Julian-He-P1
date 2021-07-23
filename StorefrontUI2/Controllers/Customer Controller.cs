@@ -7,6 +7,9 @@ using StorefrontBL;
 using StorefrontUI2.Models;
 using StorefrontModels;
 using StorefrontDL;
+using Serilog;
+using Microsoft.AspNetCore.Http;
+
 
 namespace StorefrontUI2.Controllers{
     public class CustomerController : Controller{
@@ -17,13 +20,20 @@ namespace StorefrontUI2.Controllers{
 
         }
         //show all customers
-        public IActionResult Index(string searchby, string search){
+        public IActionResult Index(string search){
+            
+        try{
             if (search == null){
                 return View(_customerbl.GetAllCustomers().Select(cust => new CustomerVM(cust)).ToList());
             }
             else{
                 return View(_customerbl.GetAllCustomers().Where(cust => cust.Name.Contains(search)).Select(cust => new CustomerVM(cust)).ToList());
             }
+        }
+        catch (Exception e){
+            Log.Debug(e.ToString());
+            return View(_customerbl.GetAllCustomers().Select(cust => new CustomerVM(cust)).ToList());
+        }
         }
         public IActionResult Create()
         {
@@ -38,14 +48,15 @@ namespace StorefrontUI2.Controllers{
                     _customerbl.AddCustomer(new Customer{
                     Name = customer.Name,
                     Address = customer.Address,
-                    Orders = customer.Orders,
+                    Orders = null,
                     Phone = customer.Phone,
                     Email = customer.Email,
                     });
                     return RedirectToAction(nameof(Index));
                 }
             }
-            catch (Exception){
+            catch (Exception e){
+                Log.Debug(e.ToString());
                 return View();
             }
             return View();
@@ -53,9 +64,10 @@ namespace StorefrontUI2.Controllers{
 
         public IActionResult ViewInfo(int p_id)
         {
-            ViewBag.Customer = _customerbl.GetCustomer(p_id);
+            CookieOptions option = new CookieOptions(); 
+            option.Expires = DateTime.Now.AddDays(1); 
+            Response.Cookies.Append("CustomerID", Convert.ToString(p_id), option); 
             return View(new CustomerVM(_customerbl.GetCustomer(p_id)));
-            
         }
 
 

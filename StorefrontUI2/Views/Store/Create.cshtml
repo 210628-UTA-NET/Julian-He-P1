@@ -1,0 +1,32 @@
+@model StorefrontUI2.Models.CustomerVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+@* Code to create a customer inputs name, address orders *@
+<body>
+    <h3>Create a Store</h3>
+
+     <Div>
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Name</label>
+                <input asp-for="Name" type ="text" class="form-control" placeholder="Put Name Of Store Here">
+                <span asp-validation-for = "Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label">Address</label>
+                <input asp-for="Address" type="text" class="form-control">
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <a asp-action="Index" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+    </div> 
+</body>
+</html>

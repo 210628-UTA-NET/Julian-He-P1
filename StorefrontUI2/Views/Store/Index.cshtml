@@ -10,7 +10,13 @@
     <h1>You are in the Storefront Page</h1>
 
     <a class="btn btn-secondary" asp-action="Create">Create Store</a>
-    <a class="btn btn-secondary" asp-action="Find"> Find a Store</a>
+
+        <p>
+            @using(Html.BeginForm("Index","Store", FormMethod.Get)){
+            <br/>
+            @Html.TextBox("Search") <input type = "submit" value = "Search" placeholder="Store Name" />
+            }
+        </p>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -21,6 +27,11 @@
             </tr>
         </thead>
         <tbody>
+            @if (Model.Count()==0){
+                <tr>
+                    <td colspan="4"> No Stores match search criteria</td>
+                </tr>
+            }
             @foreach (var item in Model)
             {
                 <tr>
