@@ -16,7 +16,7 @@ namespace StorefrontBL
         /// </summary>
         /// <returns>Returns a list of restaurants</returns>
 
-        Cart GetCart(int id);
+        List<Cart> GetCart(int id);
 
         Cart AddCart(Cart p_cart);
 

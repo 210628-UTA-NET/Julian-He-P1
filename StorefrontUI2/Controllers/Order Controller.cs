@@ -117,15 +117,15 @@ namespace StorefrontUI2.Controllers{
         }
         public IActionResult MakeOrder(int store_id, int cust_id, string search){
             List<Cart> carts = _cartBL.GetAllCarts();
-            Cart cart = carts.Where(cart => cart.CustomerID == Request.Cookies["CustomerID"]);
-            if(cart == null){
+            List<Cart> cart = carts.Where(cart => cart.CustomerID == Convert.ToInt32(Request.Cookies["CustomerID"])).Select(cart=> cart).ToList();
+            if(cart.Count() == 0){
                 Cart newCart = new Cart();
                 newCart.CustomerID = cust_id;
                 newCart.StorefrontID = store_id;
                 _cartBL.AddCart(newCart);
             }
             else{
-                _cartBL.RemoveCart(cart);
+                _cartBL.RemoveCart(cart[0]);
                 Cart newCart = new Cart();
                 newCart.CustomerID = cust_id;
                 newCart.StorefrontID = store_id;
@@ -149,9 +149,9 @@ namespace StorefrontUI2.Controllers{
         public IActionResult AddItem(int Quantity, int itemID){
             try{
             List<Cart> carts = _cartBL.GetAllCarts();
-            Cart cart = carts.Where(cart => cart.CustomerID == Request.Cookies["CustomerID"]); 
+            List<Cart> cart = carts.Where(cart => cart.CustomerID == Convert.ToInt32(Request.Cookies["CustomerID"])).Select(cart=> cart).ToList(); 
             LineItem lineitem = new LineItem();
-            lineitem.CartID=cart.ID;
+            lineitem.CartID=cart[0].ID;
             Product product = _productBL.GetProduct(itemID);
             lineitem.ProductName = product;
             lineitem.Quantity = Quantity;
@@ -159,7 +159,12 @@ namespace StorefrontUI2.Controllers{
             }
             catch (Exception e){
                 Log.Information(e.ToString());
+                return RedirectToAction(nameof(MakeOrder));
             }
+        }
+
+        public IActionResult Checkout(){
+            return View();
         }
     }        
 }

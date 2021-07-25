@@ -16,7 +16,7 @@ namespace StorefrontBL{
             return _repo.AddCart(cart);
         }
 
-        public Cart GetCart(int id)
+        public List<Cart> GetCart(int id)
         {
             return _repo.GetCart(id);
         }

@@ -26,8 +26,8 @@ namespace StorefrontDL{
         {
             return _context.Carts.Select(cart=> cart).ToList();
         }
-        public Cart GetCart(int id){
-            return _context.Carts.Find(id);
+        public List<Cart> GetCart(int id){
+            return _context.Carts.Where(cart => cart.CustomerID == id).Select(cart=> cart).ToList();
         }
 
         public void RemoveCart(Cart cart)
