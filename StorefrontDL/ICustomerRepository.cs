@@ -9,5 +9,6 @@ namespace StorefrontDL{
         Customer GetCustomer(int customer);
         Customer AddCustomer(Customer customer);
         List<Customer> GetCustomer(string p_name);
+        Customer UpdateCustomer(Customer customer);
     }
 }

@@ -21,8 +21,7 @@ namespace StorefrontUI2
         {
             Configuration = configuration;
             Log.Logger = new LoggerConfiguration().WriteTo.File("logs/storeAppDebug.log", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-           Log.Information("Logger Created"); 
+                .CreateLogger(); 
         }
 
         public IConfiguration Configuration { get; }
@@ -42,6 +41,8 @@ namespace StorefrontUI2
             services.AddScoped<IProductBL, ProductBL>();
             services.AddScoped<ILineItemRepository, LineItemRepository>();
             services.AddScoped<ILineItemBL, LineItemBL>();
+            services.AddScoped<ICartBL, CartBL>();
+            services.AddScoped<ICartRepository, CartRepository>();
             
         }
 

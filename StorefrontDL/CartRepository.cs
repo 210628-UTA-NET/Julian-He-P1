@@ -8,35 +8,32 @@ using Microsoft.EntityFrameworkCore;
 namespace StorefrontDL{
     public class CartRepository : ICartRepository{
         private StorefrontDBContext  _context;
+        //Constructor
         public CartRepository(StorefrontDBContext p_context){
             _context= p_context;
         }
 
-        public LineItem AddCartItem(LineItem lineitem, int customerID, int storeID)
+        //Add an item to the carts table
+        public Cart AddCart(Cart cart)
         {   
-            Cart cart = new Cart();
-            cart.CustomerID= customerID;
-            cart.StorefrontID = storeID;
             _context.Carts.Add(cart);
-            lineitem.CartID = 1;
-            _context.LineItems.Add(lineitem);
             _context.SaveChanges();
-            return lineitem;
+            return cart;
         }
 
-        public List<LineItem> GetAllCartItems()
+        //gets all carts
+        public List<Cart> GetAllCarts()
         {
-            return _context.LineItems.Where(cart => cart.CartID == 1).ToList();
+            return _context.Carts.Select(cart=> cart).ToList();
+        }
+        public Cart GetCart(int id){
+            return _context.Carts.Find(id);
         }
 
-        public LineItem GetCartItem(int i)
+        public void RemoveCart(Cart cart)
         {
-            throw new NotImplementedException();
-        }
-
-        public LineItem UpdateLineItem(LineItem lineitem, int amt)
-        {
-            throw new NotImplementedException();
+            _context.Carts.Remove(cart);
+            _context.SaveChanges();
         }
     }
 }

@@ -31,9 +31,9 @@ namespace StorefrontDL
         {
             return _context.Storefronts.Find(id);
         }
-        public LineItem Replenish(LineItem item, int amt){
+        public LineItem Replenish(LineItem item){
             LineItemRepository lines = new LineItemRepository(_context);
-                lines.UpdateLineItem(item, amt);
+                lines.UpdateLineItem(item);
             return item;
             }
     }

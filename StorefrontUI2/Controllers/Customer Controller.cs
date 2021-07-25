@@ -63,10 +63,11 @@ namespace StorefrontUI2.Controllers{
         }
 
         public IActionResult ViewInfo(int p_id)
-        {
+        {   
             CookieOptions option = new CookieOptions(); 
             option.Expires = DateTime.Now.AddDays(1); 
             Response.Cookies.Append("CustomerID", Convert.ToString(p_id), option); 
+            ViewBag.Customer = _customerbl.GetCustomer(p_id);
             return View(new CustomerVM(_customerbl.GetCustomer(p_id)));
         }
 

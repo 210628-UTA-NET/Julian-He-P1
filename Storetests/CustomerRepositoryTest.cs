@@ -50,6 +50,41 @@ namespace Storetests
                 Assert.Equal(customers.Name, "Macintosh");
             }
         }
+        [Fact]
+        public void AddCustomerShouldAddCustomer(){
+            using(var context = new StorefrontDBContext(_options)){
+                ICustomerRepository repo = new CustomerRepository(context);
+                Customer customers;
+                Customer customer = new Customer();
+                customer.Name = "P Sherman";
+                customer.Address = "32 Wallaby Way";
+                customer.Email = "Nemo@gmail.com";
+                customer.Phone = "3456789012";
+                customers = repo.AddCustomer(customer);
+                Customer customer1 = repo.GetCustomer(3);
+                Assert.NotNull(customer1);
+                Assert.Equal(customer1.Name, "P Sherman");
+            }
+        }
+        
+        [Fact]
+        public void UpdateCustomerShouldUpdateCustomer(){
+            using(var context = new StorefrontDBContext(_options)){
+                ICustomerRepository repo = new CustomerRepository(context);
+                Customer updated;
+                Customer toupdate = new Customer{
+                    ID =1,
+                    Name = "Hugh",
+                    Address = "Houston",
+                    Email = "HttpStyleUriParser@gmail.com",
+                    Phone = "0123456789",
+                } ;
+                updated = repo.UpdateCustomer(toupdate);
+                updated = repo.GetCustomer(1);
+                Assert.NotNull(updated);
+                Assert.Equal("Hugh", updated.Name);
+            }
+        }
          private void Seed()
         {
             using (var context = new StorefrontDBContext(_options))

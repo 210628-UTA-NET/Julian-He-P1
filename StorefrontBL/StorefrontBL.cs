@@ -30,8 +30,8 @@ namespace StorefrontBL
         public Storefront GetStorefront(int p_store){
             return _repo.GetStorefront(p_store);
         }
-        public LineItem Replenish(LineItem item, int amt){
-                return _repo.Replenish( item, amt);
+        public LineItem Replenish(LineItem item){
+                return _repo.Replenish( item);
         }
 
     }

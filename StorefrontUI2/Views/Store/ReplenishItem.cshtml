@@ -1,0 +1,25 @@
+@model StorefrontUI2.Models.LineItemVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+<!-- Modal -->
+<div>
+    <form asp-action="ReplenishItem">
+        <div class="mb-3">
+            <label >Quantity</label>
+            <input asp-for= "Quantity" name="Quantity" class="form-control"/>
+            <span class="text-danger"></span>
+             <input type="hidden" name="line" value= @TempData["LineID"]>
+            <button type="submit" asp- class="btn btn-primary">Submit</button>
+        </div>
+    </form> 
+    @Html.ActionLink("Back", "ViewInventory", "Store", new{p_id = Model.StorefrontID} )
+</div>
+</body>
+</html>

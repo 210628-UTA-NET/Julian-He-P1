@@ -22,8 +22,9 @@ namespace StorefrontBL
 
         List<LineItem> GetOrderItems(int i);
         
-        LineItem UpdateLineItem(LineItem p_lineitem, int amt);
+        LineItem UpdateLineItem(LineItem p_lineitem);
 
         List<LineItem> GetInventory(int id);
+
     }
 }

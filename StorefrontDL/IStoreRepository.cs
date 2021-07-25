@@ -10,7 +10,7 @@ namespace StorefrontDL{
         Storefront GetStorefront(int id);
 
         Storefront AddStore(Storefront store);
-        LineItem Replenish(LineItem item, int amt);
+        LineItem Replenish(LineItem item);
     }
 }
 

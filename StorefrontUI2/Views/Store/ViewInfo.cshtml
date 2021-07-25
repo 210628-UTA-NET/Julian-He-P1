@@ -16,10 +16,10 @@
             <label>Name: @Model.Name</label> <br>
         <label>Address: @Model.Address</label> <br>
         <td>
-            @Html.ActionLink("View Orders", "StoreOrders", "Order", new {p_id = Model.ID})
+            @Html.ActionLink("View Orders", "StoreOrders", "Order", new {p_id = Model.ID},new {@style = "color:white", @class = "btn btn-secondary"})
         </td>
         <td>
-            @Html.ActionLink("View Inventory", "ViewInventory", new{p_id=Model.ID})
+            @Html.ActionLink("View Inventory", "ViewInventory", new{p_id=Model.ID},new {@style = "color:white", @class = "btn btn-secondary"})
         </td>
         </tbody>
     </table>

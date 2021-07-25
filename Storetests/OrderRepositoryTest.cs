@@ -45,6 +45,32 @@ namespace Storetests
                 //We want to make sure our inmemory database gets deleted everytime before another test case runs it
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
+                context.Storefronts.AddRange(new Storefront
+                    {
+                        Name = "Macintosh",
+                        Address = "Houston",
+                    },
+                    new Storefront
+                    {
+                        Name = "Nvidia",
+                        Address = "Venice",
+                    });
+
+                context.Customers.AddRange(new Customer
+                    {
+                        Name = "Macintosh",
+                        Address = "Houston",
+                        Email = "HttpStyleUriParser@gmail.com",
+                        Phone = "0123456789",
+                    },
+                    new Customer
+                    {
+                        Name = "Nvidia",
+                        Address = "Venice",
+                        Email = "there@gmail.com",
+                        Phone = "1234567890",
+                    }
+                );
 
                 context.Orders.AddRange(
                     new Order
@@ -57,12 +83,11 @@ namespace Storetests
                     new Order
                     {
                         StorefrontID= 1,
-                        CustomerID = 2,
+                        CustomerID = 1,
                         TotalPrice = 250,
                         Date = "12/31/1999",
-                    }
-                );
-
+                    });
+                
                 context.SaveChanges();
             }
     }   }

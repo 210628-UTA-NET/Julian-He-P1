@@ -9,7 +9,7 @@
 
 <body>
     <h1>Inventory</h1>
-
+    
     <table class="table">
     <thead>
         <tr>
@@ -30,7 +30,6 @@
                     <td colspan="4"> No Items in Inventory</td>
                 </tr>
             }
-        }
         @foreach (var item in Model)
         {
             <tr>
@@ -43,10 +42,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName.Price)
                 </td>
+                <td>
+                    @Html.ActionLink("Replenish Item", "ReplenishItem", new{p_id= item.ID}, new{@class="btn btn-secondary"})
+                </td>
             </tr>
         }
     </tbody>
     </table>
-    
+    <p>
+    @Html.ActionLink("Back", "ViewInfo", "Store", new {p_id = ViewBag.Storefront.ID}, new {@style = "color:white", @class = "btn btn-danger"})
+</p>
 </body>
 </html>

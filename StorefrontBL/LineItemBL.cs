@@ -17,7 +17,7 @@ namespace StorefrontBL{
             return p_lineitem;
         }
         public LineItem GetLineItem(int id){
-           return _repo.GetLineItem( id);
+           return _repo.GetLineItem(id);
             
         }
 
@@ -31,13 +31,19 @@ namespace StorefrontBL{
             return _repo.GetOrderItems(i);
         }
 
-        public LineItem UpdateLineItem(LineItem p_lineitem, int amt)
+        public LineItem UpdateLineItem(LineItem p_lineitem)
         {
-            return _repo.UpdateLineItem(p_lineitem, amt);
+            return _repo.UpdateLineItem(p_lineitem);
         }
 
         public List<LineItem> GetInventory(int id){
             return _repo.GetInventory(id);
         }
+
+        public LineItem GetCartItems(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }

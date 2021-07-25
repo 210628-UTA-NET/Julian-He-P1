@@ -8,7 +8,7 @@ namespace StorefrontDL{
         List<LineItem> GetAllLineItems();
         List<LineItem> GetOrderItems(int i);
         LineItem AddLineItem(LineItem lineitem);
-        LineItem UpdateLineItem(LineItem lineitem, int amt);
+        LineItem UpdateLineItem(LineItem lineitem);
         LineItem GetLineItem(int id);
         List<LineItem> GetInventory(int i);
     }

@@ -40,11 +40,8 @@ namespace StorefrontDL{
 
             return _context.LineItems.Where(line => line.OrderID==id).Include(l => l.ProductName).ToList();
         }
-        public LineItem UpdateLineItem(LineItem item, int amt){
-            var result = _context.LineItems.Where(p => p.ID == item.ID);
-            foreach(var res in result){
-                res.Quantity += amt;
-            }
+        public LineItem UpdateLineItem(LineItem item){
+            _context.LineItems.Update(item);
             _context.SaveChanges();
             return item;
         }
