@@ -21,6 +21,10 @@ namespace Storetests
             _options = new DbContextOptionsBuilder<StorefrontDBContext>().UseSqlite("Filename = CustomerTest.db").Options;
             this.Seed();
         }
+
+        /// <summary>
+        /// a test for get all customers
+        /// </summary>
         [Fact]
         public void GetAllCustomerShouldGetAllCustomer()
         {
@@ -39,6 +43,9 @@ namespace Storetests
             }
         }
 
+        /// <summary>
+        /// a test for get customer using id
+        /// </summary>
         [Fact]
         public void GetCustomerIDShouldGetACustomerByID(){
             using(var context = new StorefrontDBContext(_options)){
@@ -50,6 +57,10 @@ namespace Storetests
                 Assert.Equal(customers.Name, "Macintosh");
             }
         }
+
+        /// <summary>
+        /// a test for add customer
+        /// </summary>
         [Fact]
         public void AddCustomerShouldAddCustomer(){
             using(var context = new StorefrontDBContext(_options)){
@@ -66,7 +77,23 @@ namespace Storetests
                 Assert.Equal(customer1.Name, "P Sherman");
             }
         }
+
+        /// <summary>
+        /// a test for a non number phonenumber
+        /// </summary>
+        /// <param name="input">the phone number to test</param>
+        [Theory]
+        [InlineData("123456789y")]
+        public void CustomerShouldNotAllowNonNumbersInPhone(string input){
+            using (var context = new StorefrontDBContext(_options)){
+                Customer customer = new Customer();
+                Assert.Throws<Exception>(() => customer.Phone = input);
+            }
+        }
         
+        /// <summary>
+        /// a test for update
+        /// </summary>
         [Fact]
         public void UpdateCustomerShouldUpdateCustomer(){
             using(var context = new StorefrontDBContext(_options)){
@@ -85,6 +112,22 @@ namespace Storetests
                 Assert.Equal("Hugh", updated.Name);
             }
         }
+
+        /// <summary>
+        /// a test for get customer using string
+        /// </summary>
+        [Fact]
+        public void GetCustomerByNameSHouldGetCustomer(){
+            using(var context = new StorefrontDBContext(_options)){
+                ICustomerRepository repo = new CustomerRepository(context);
+                List<Customer> customerfound;
+                customerfound = repo.GetCustomer("Nvidia");
+                Customer customer = customerfound[0];
+                Assert.NotNull(customerfound);
+                Assert.Equal("Nvidia", customer.Name);
+            }
+        }
+         
          private void Seed()
         {
             using (var context = new StorefrontDBContext(_options))

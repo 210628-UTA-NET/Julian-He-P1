@@ -101,11 +101,21 @@ namespace StorefrontUI2.Controllers{
             return View(result.Select( order => new OrderVM(order)).ToList());
         }
 
+        /// <summary>
+        /// View The details of the order
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
         public IActionResult ViewCustomerOrder(int p_id){
             ViewBag.Order= _orderBL.GetOrder(p_id);
             return View( new OrderVM(_orderBL.GetOrder(p_id)));
         }
 
+        /// <summary>
+        /// View the details of the store's order
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
         public IActionResult ViewStoreOrder(int p_id){
             Order order = _orderBL.GetOrder(p_id);
             return View(new OrderVM(order));

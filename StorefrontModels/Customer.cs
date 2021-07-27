@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace StorefrontModels
 {
@@ -59,8 +60,15 @@ namespace StorefrontModels
 
         } 
         set{
-                _phone = value;
-        } }
+            if(!Regex.IsMatch(value, @"^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$")){
+                throw new Exception("Phone Number cannot have Letters!");
+                }
+            if (value.Length >10 || value.Length<10){
+                throw new Exception("Must have 10 numbers in phone number");
+            }
+            _phone = value; 
+            } 
+        }
     }
 }
 
