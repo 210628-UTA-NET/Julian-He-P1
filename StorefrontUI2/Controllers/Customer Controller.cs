@@ -63,12 +63,22 @@ namespace StorefrontUI2.Controllers{
         }
 
         public IActionResult ViewInfo(int p_id)
-        {   
+        {   try{
+            Log.Information(Request.Cookies["CustomerID"]);
+            if (p_id == 0){
+                p_id = Convert.ToInt32(Request.Cookies["CustomerID"]);
+            }
             CookieOptions option = new CookieOptions(); 
             option.Expires = DateTime.Now.AddDays(1); 
             Response.Cookies.Append("CustomerID", Convert.ToString(p_id), option); 
             ViewBag.Customer = _customerbl.GetCustomer(p_id);
             return View(new CustomerVM(_customerbl.GetCustomer(p_id)));
+            }
+            catch(Exception e){
+                Log.Debug(e.ToString());
+                return RedirectToAction(nameof(Index));
+            }
+
         }
 
 

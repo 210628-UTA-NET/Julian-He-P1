@@ -40,9 +40,9 @@ namespace StorefrontBL{
             return _repo.GetInventory(id);
         }
 
-        public LineItem GetCartItems(int id)
+        public void RemoveCartItems(int id)
         {
-            throw new System.NotImplementedException();
+            _repo.RemoveCartItems(id);
         }
 
     }

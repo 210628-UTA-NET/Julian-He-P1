@@ -16,7 +16,7 @@ namespace StorefrontBL
         /// </summary>
         /// <returns>Returns a list of restaurants</returns>
 
-        List<Cart> GetCart(int id);
+        Cart GetCart(int id);
 
         Cart AddCart(Cart p_cart);
 
@@ -24,5 +24,6 @@ namespace StorefrontBL
 
         void RemoveCart(Cart cart);
 
+        Cart GetCartByID(int CartID);
     }
 }

@@ -6,8 +6,10 @@ namespace StorefrontDL{
 
         ///returns all customers in repo
         List<Cart> GetAllCarts();
-        List<Cart> GetCart(int i);
+        Cart GetCart(int i);
         Cart AddCart(Cart cart);
         void RemoveCart(Cart cart);
+
+        Cart GetCartByID(int CartID);
     }
 }

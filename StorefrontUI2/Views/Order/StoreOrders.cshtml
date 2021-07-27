@@ -36,10 +36,10 @@
                 Customer Name
             </th>
             <th>
-                @Html.DisplayNameFor(Model => Model.TotalPrice)
+                @Html.ActionLink("Total Price", "CustomerOrders", new {sortby = ViewBag.SortPriceParameter, p_id = ViewBag.Storefront.ID})
             </th>
             <th>
-                Date Placed
+                @Html.ActionLink("Date Placed", "CustomerOrders", new {sortby = ViewBag.SortDateParameter, p_id = ViewBag.Storefront.ID})
             </th>
         </tr>
     </thead>

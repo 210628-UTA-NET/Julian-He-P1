@@ -16,9 +16,9 @@ namespace StorefrontBL{
             return _repo.AddCart(cart);
         }
 
-        public List<Cart> GetCart(int id)
+        public Cart GetCart(int Customerid)
         {
-            return _repo.GetCart(id);
+            return _repo.GetCart(Customerid);
         }
         public List<Cart> GetAllCarts(){
             return _repo.GetAllCarts();
@@ -27,6 +27,9 @@ namespace StorefrontBL{
         public void RemoveCart(Cart cart)
         {
             _repo.RemoveCart(cart);
+        }
+                public Cart GetCartByID(int CartID){
+            return _repo.GetCartByID(CartID);
         }
     }
 }

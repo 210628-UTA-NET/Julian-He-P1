@@ -23,7 +23,7 @@ namespace StorefrontDL{
 
         public List<LineItem> GetAllLineItems()
         {
-            return _context.LineItems.Select(line => line).ToList();
+            return _context.LineItems.Select(line => line).Include(l => l.ProductName).ToList();
         }
 
         public List<LineItem> GetInventory( int id)
@@ -33,7 +33,8 @@ namespace StorefrontDL{
 
         public LineItem GetLineItem(int id)
         {
-            return _context.LineItems.Find(id);
+            List<LineItem>lines  = _context.LineItems.Where(line => line.ID== id).Include(line=> line.ProductName).ToList();
+            return lines[0];
         }
 
         public List<LineItem> GetOrderItems(int id){
@@ -44,6 +45,14 @@ namespace StorefrontDL{
             _context.LineItems.Update(item);
             _context.SaveChanges();
             return item;
+        }
+
+        public void RemoveCartItems(int id){
+            List<LineItem> cartitems = _context.LineItems.Where(line=> line.CartID == id).Select(line=> line).ToList();
+            foreach(LineItem line in cartitems){
+                _context.LineItems.Remove(line);
+            }
+            _context.SaveChanges();
         }
     }
 }

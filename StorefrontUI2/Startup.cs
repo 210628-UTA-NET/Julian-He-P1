@@ -20,7 +20,7 @@ namespace StorefrontUI2
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Log.Logger = new LoggerConfiguration().WriteTo.File("logs/storeAppDebug.log", rollingInterval: RollingInterval.Day)
+            Log.Logger = new LoggerConfiguration().WriteTo.File("logs/storeAppDebug.log", rollingInterval: RollingInterval.Day).MinimumLevel.Debug()
                 .CreateLogger(); 
         }
 

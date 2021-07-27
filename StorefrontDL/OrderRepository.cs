@@ -15,6 +15,10 @@ namespace StorefrontDL{
         public Order AddOrder(Order order)
         {
             _context.Orders.Add(order);
+            LineItemRepository linerepo = new LineItemRepository(_context);
+            foreach (LineItem line in order.Items){
+                linerepo.AddLineItem(line);
+            }
             _context.SaveChanges();
             return order;
         }
@@ -33,23 +37,6 @@ namespace StorefrontDL{
         public List<Order> GetStoreOrder(int storeID)
         {
             return _context.Orders.Select(orders => orders).Where(store => store.StorefrontID == storeID).ToList();
-            /* if (PriceOrDate == "Price"){
-                if (AscOrDesc == "Asc"){
-                    return _context.Orders.Where(store => store.StorefrontID == storeID).OrderBy(store=> store.TotalPrice).ToList();
-                }
-                else{
-                    return _context.Orders.Where(store => store.StorefrontID == storeID).OrderByDescending(store=> store.TotalPrice).ToList();
-                }
-            }
-            else{
-                if(AscOrDesc == "Asc"){
-                    return _context.Orders.Where(store=>store.StorefrontID == storeID).OrderBy(store => store.Date).ToList();
-                }
-                else{
-                    return _context.Orders.Where(store=>store.StorefrontID == storeID).OrderByDescending(store => store.Date).ToList();
-                }
-                
-            } */
         }
         public List<Order> GetCustomerOrder(int customerID){
             return this.GetAllOrders().Where(order => order.CustomerID == customerID).ToList();

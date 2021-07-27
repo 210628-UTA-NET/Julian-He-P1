@@ -25,6 +25,7 @@ namespace StorefrontBL
         LineItem UpdateLineItem(LineItem p_lineitem);
 
         List<LineItem> GetInventory(int id);
+        void RemoveCartItems(int id);
 
     }
 }

@@ -26,14 +26,20 @@ namespace StorefrontDL{
         {
             return _context.Carts.Select(cart=> cart).ToList();
         }
-        public List<Cart> GetCart(int id){
-            return _context.Carts.Where(cart => cart.CustomerID == id).Select(cart=> cart).ToList();
+        public Cart GetCart(int id){
+            return _context.Carts.Where(cart => cart.CustomerID == id).Include(c=> c.CartItems).ThenInclude(p=>p.ProductName).FirstOrDefault();
         }
 
         public void RemoveCart(Cart cart)
         {
+            LineItemRepository repoLI = new LineItemRepository(_context);
+            repoLI.RemoveCartItems(cart.ID);
             _context.Carts.Remove(cart);
             _context.SaveChanges();
+        }
+
+        public Cart GetCartByID(int CartID){
+            return _context.Carts.Where(c => c.ID == CartID).Include(c=>c.CartItems).ThenInclude(p=>p.ProductName).FirstOrDefault();
         }
     }
 }

@@ -1,4 +1,4 @@
-/* using System;
+using System;
 using Xunit;
 using System.Linq;
 using System.Text;
@@ -38,6 +38,7 @@ namespace Storetests
                 Assert.Equal(2,orders.Count);
             }
         }
+        
          private void Seed()
         {
             using (var context = new StorefrontDBContext(_options))
@@ -47,17 +48,20 @@ namespace Storetests
                 context.Database.EnsureCreated();
                 context.Storefronts.AddRange(new Storefront
                     {
+                        ID = 1,
                         Name = "Macintosh",
                         Address = "Houston",
                     },
                     new Storefront
                     {
+                        ID=2,
                         Name = "Nvidia",
                         Address = "Venice",
                     });
 
                 context.Customers.AddRange(new Customer
                     {
+                        ID=1,
                         Name = "Macintosh",
                         Address = "Houston",
                         Email = "HttpStyleUriParser@gmail.com",
@@ -65,6 +69,7 @@ namespace Storetests
                     },
                     new Customer
                     {
+                        ID=2,
                         Name = "Nvidia",
                         Address = "Venice",
                         Email = "there@gmail.com",
@@ -75,6 +80,7 @@ namespace Storetests
                 context.Orders.AddRange(
                     new Order
                     {
+                        OrderID=1,
                         StorefrontID= 1,
                         CustomerID = 1,
                         TotalPrice = 350.50,
@@ -82,6 +88,7 @@ namespace Storetests
                     },
                     new Order
                     {
+                        OrderID=2,
                         StorefrontID= 1,
                         CustomerID = 1,
                         TotalPrice = 250,
@@ -91,4 +98,4 @@ namespace Storetests
                 context.SaveChanges();
             }
     }   }
-} */
+}

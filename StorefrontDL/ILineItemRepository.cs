@@ -11,5 +11,6 @@ namespace StorefrontDL{
         LineItem UpdateLineItem(LineItem lineitem);
         LineItem GetLineItem(int id);
         List<LineItem> GetInventory(int i);
+        void RemoveCartItems(int id);
     }
 }
