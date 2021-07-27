@@ -34,7 +34,7 @@ namespace Storetests
                 newprod.Name = "Pizza";
                 newprod.Price = 5;
                 LineItem line = new LineItem();
-                line.ID = 3;
+                line.ID = 4;
                 line.StorefrontID = 1;
                 line.Quantity = 5;
                 line.ProductName = newprod; 
@@ -55,7 +55,7 @@ namespace Storetests
                 lines = repo.GetAllLineItems();
                 
                 Assert.NotNull(lines);
-                Assert.Equal(2, lines.Count);
+                Assert.Equal(3, lines.Count);
 
             }
         }
@@ -87,7 +87,32 @@ namespace Storetests
                 Assert.Equal(5, line.Quantity);
             }
         }
-
+        /// <summary>
+        /// A test for get order items
+        /// </summary>
+        [Fact]
+        public void GetOrderItemsShouldReturnItems(){
+            using(var context = new StorefrontDBContext(_options)){
+                ILineItemRepository repo = new LineItemRepository(context);
+                List<LineItem> lines;
+                lines=repo.GetOrderItems(1);
+                Assert.NotNull(lines);
+                Assert.Equal(1, lines.Count);
+            }
+        }
+        
+        /// <summary>
+        /// A test for 
+        /// </summary>
+        [Fact]
+        public void RemoveCartItemsShouldRemoveCartItems(){
+            using (var context = new StorefrontDBContext(_options)){
+                ILineItemRepository repo = new LineItemRepository(context);
+                repo.RemoveCartItems(1);
+                List<LineItem> lines = repo.GetAllLineItems();
+                Assert.Equal(2, lines.Count);
+            }
+        }
         private void Seed()
         {
             using (var context = new StorefrontDBContext(_options))
@@ -120,6 +145,19 @@ namespace Storetests
                         Quantity=4,
                         StorefrontID=1,
                         ProductName=prod
+                    },
+                    new LineItem{
+                        ID=3,
+                        Quantity=3,
+                        CartID = 1,
+                        ProductName=prod
+                    }
+                );
+                context.Carts.AddRange(
+                    new Cart{
+                        ID=1,
+                        CustomerID=1,
+                        StorefrontID=1
                     }
                 );
                 context.Customers.AddRange(

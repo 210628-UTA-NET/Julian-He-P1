@@ -30,6 +30,7 @@
     <ProjectReference Include="..\StorefrontBL\StorefrontBL.csproj" />
     <ProjectReference Include="..\StorefrontDL\StorefrontDL.csproj" />
     <ProjectReference Include="..\StorefrontModels\StorefrontModels.csproj" />
+    <ProjectReference Include="..\StorefrontUI2\StorefrontUI2.csproj" />
   </ItemGroup>
 
 </Project>

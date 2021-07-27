@@ -54,7 +54,7 @@ namespace Storetests
                 customers= repo.GetCustomer(1);
 
                 Assert.NotNull(customers);
-                Assert.Equal(customers.Name, "Macintosh");
+                Assert.Equal("Macintosh",customers.Name);
             }
         }
 
